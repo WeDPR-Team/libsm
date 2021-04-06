@@ -126,7 +126,7 @@ impl EccCtx {
 
     pub fn inv_n(&self, x: &BigUint) -> BigUint {
         if *x == BigUint::zero() {
-            panic!("zero has no inversion.");
+            return BigUint::default();
         }
 
         let mut ru = x.clone();
@@ -263,7 +263,7 @@ impl EccCtx {
 
         match self.new_point(&x, &y) {
             Ok(p) => p,
-            Err(m) => panic!(m),
+            Err(m) => return Point::default(),
         }
     }
 
@@ -278,7 +278,7 @@ impl EccCtx {
     pub fn to_affine(&self, p: &Point) -> (FieldElem, FieldElem) {
         let ctx = &self.fctx;
         if p.is_zero() {
-            panic!("cannot convert the infinite point to affine");
+            return (FieldElem::default(), FieldElem::default());
         }
 
         let zinv = ctx.inv(&p.z);

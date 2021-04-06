@@ -169,7 +169,7 @@ impl FieldCtx {
     // http://delta.cs.cinvestav.mx/~francisco/arith/julio.pdf
     pub fn inv(&self, x: &FieldElem) -> FieldElem {
         if x.is_zero() {
-            panic!("zero has no inversion in filed");
+            return FieldElem::default();
         }
 
         let mut ru = *x;
